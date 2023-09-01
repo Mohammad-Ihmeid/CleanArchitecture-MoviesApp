@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:movies_app/core/error/exceptions.dart';
+import 'package:movies_app/core/network/error_message_model.dart';
 import 'package:movies_app/movies/data/models/movies_model.dart';
 
 class MoviesRemoteDataSource {
@@ -22,7 +24,10 @@ class MoviesRemoteDataSource {
         ),
       );
     } else {
-      return [];
+      var responseJson = json.decode(response.body);
+      throw RemoteExceptions(
+        errorMessageModel: ErrorMessageModel.fromJson(responseJson),
+      );
     }
   }
 }
