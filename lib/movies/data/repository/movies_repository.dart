@@ -7,9 +7,7 @@ import 'package:movies_app/movies/domain/repository/base_movies_repository.dart'
 
 class MoviesRepository extends BaseMoviesRepository {
   BaseMoviesRemoteDataSource baseMoviesRemoteDataSource;
-  MoviesRepository({
-    required this.baseMoviesRemoteDataSource,
-  });
+  MoviesRepository(this.baseMoviesRemoteDataSource);
 
   @override
   Future<Either<Failure, List<Movies>>> getNowPlayingMovies() async {
