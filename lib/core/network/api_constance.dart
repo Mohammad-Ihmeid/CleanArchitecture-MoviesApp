@@ -5,4 +5,10 @@ class ApiConstance {
 
   static const String nowPlayingMoviesPath =
       "${baseURL}movie/now_playing?language=en-US&page=1";
+
+  static const String popularMoviesPath =
+      "${baseURL}movie/popular?language=en-US&page=1";
+
+  static const String topRatedMoviesPath =
+      "${baseURL}movie/top_rated?language=en-US&page=1";
 }
