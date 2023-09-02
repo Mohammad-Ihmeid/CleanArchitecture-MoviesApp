@@ -8,10 +8,10 @@ class RemoteExceptions implements Exception {
   });
 }
 
-class LocalDataSource implements Exception {
+class DataBaseException implements Exception {
   final String message;
 
-  LocalDataSource({
+  DataBaseException({
     required this.message,
   });
 }
