@@ -11,4 +11,8 @@ class ApiConstance {
 
   static const String topRatedMoviesPath =
       "${baseURL}movie/top_rated?language=en-US&page=1";
+
+  static const String baseImageURL = "https://image.tmdb.org/t/p/w500";
+
+  static String imageURL(String path) => "$baseImageURL$path";
 }
