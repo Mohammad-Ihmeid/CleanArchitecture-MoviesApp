@@ -10,6 +10,7 @@ class MoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(getIt<MoviesBloc>().hashCode);
     return BlocProvider(create: (BuildContext context) {
       return MoviesBloc(getIt())..add(GetNowPlayingEvent());
     }, child: BlocBuilder<MoviesBloc, MoviesState>(builder: (context, state) {
