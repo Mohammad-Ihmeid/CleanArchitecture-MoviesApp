@@ -110,7 +110,7 @@ class NowPlayingComponent extends StatelessWidget {
         case RequestState.error:
           return SizedBox(
             height: 400.0,
-            child: Text(state.message),
+            child: Text(state.nowPlayingMessage),
           );
       }
     });
