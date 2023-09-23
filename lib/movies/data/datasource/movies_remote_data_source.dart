@@ -119,6 +119,10 @@ class MoviesRemoteDataSource extends BaseMoviesRemoteDataSource {
       RecommendationsParameters parameters) async {
     final response = await http.get(
       Uri.parse(ApiConstance.getRecommendationsPath(parameters.id)),
+      headers: {
+        "Authorization": ApiConstance.apiKey,
+        "accept": "application/json",
+      },
     );
 
     if (response.statusCode == 200) {
