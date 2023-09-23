@@ -1,3 +1,4 @@
+import 'package:movies_app/movies/data/models/genres_model.dart';
 import 'package:movies_app/movies/domain/entities/movie_detail.dart';
 
 class MovieDetailModel extends MovieDetail {
@@ -15,7 +16,9 @@ class MovieDetailModel extends MovieDetail {
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) =>
       MovieDetailModel(
         backdropPath: json["backdrop_path"],
-        genres: genres,
+        genres: List<GenresModel>.from(json["genres"].map(
+          (x) => GenresModel.fromJson(x),
+        )),
         id: json["id"],
         overview: json["overview"],
         releaseDate: json["release_date"],
