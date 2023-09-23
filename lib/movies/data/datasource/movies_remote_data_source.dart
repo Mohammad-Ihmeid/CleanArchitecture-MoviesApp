@@ -6,7 +6,9 @@ import 'package:movies_app/core/network/api_constance.dart';
 import 'package:movies_app/core/network/error_message_model.dart';
 import 'package:movies_app/movies/data/models/movie_detail_model.dart';
 import 'package:movies_app/movies/data/models/movies_model.dart';
+import 'package:movies_app/movies/data/models/recommendations_model.dart';
 import 'package:movies_app/movies/domain/usecases/get_movie_details_usecases.dart';
+import 'package:movies_app/movies/domain/usecases/get_recommendations_usecases.dart';
 
 abstract class BaseMoviesRemoteDataSource {
   Future<List<MoviesModel>> getNowPlayingMovies();
@@ -16,6 +18,9 @@ abstract class BaseMoviesRemoteDataSource {
   Future<List<MoviesModel>> getTopRatedMovies();
 
   Future<MovieDetailModel> getMovieDetails(MovieDetailParameters parameters);
+
+  Future<List<RecommendationsModel>> getRecommendations(
+      RecommendationsParameters parameters);
 }
 
 class MoviesRemoteDataSource extends BaseMoviesRemoteDataSource {
@@ -101,6 +106,28 @@ class MoviesRemoteDataSource extends BaseMoviesRemoteDataSource {
 
     if (response.statusCode == 200) {
       return MovieDetailModel.fromJson(json.decode(response.body));
+    } else {
+      var responseJson = json.decode(response.body);
+      throw RemoteExceptions(
+        errorMessageModel: ErrorMessageModel.fromJson(responseJson),
+      );
+    }
+  }
+
+  @override
+  Future<List<RecommendationsModel>> getRecommendations(
+      RecommendationsParameters parameters) async {
+    final response = await http.get(
+      Uri.parse(ApiConstance.getRecommendationsPath(parameters.id)),
+    );
+
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return List<RecommendationsModel>.from(
+        (responseJson["results"] as List).map(
+          (e) => RecommendationsModel.fromJson(e),
+        ),
+      );
     } else {
       var responseJson = json.decode(response.body);
       throw RemoteExceptions(
